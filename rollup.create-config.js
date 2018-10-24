@@ -9,7 +9,7 @@ const ensureArray = maybeArr => Array.isArray(maybeArr) ? maybeArr : [maybeArr];
 const createConfig = (opts) => {
 	opts = opts || {};
 	const browser = opts.browser || false;
-	const external = opts.external || Object.keys(pkg.dependencies || {}).filter(dep => !dep.match(/^acorn/));
+	const external = opts.external || Object.keys(pkg.dependencies || {});
 	const output = ensureArray(opts.output);
 
 	return {
@@ -24,10 +24,7 @@ const createConfig = (opts) => {
 			commonjs({ extensions: ['.js', '.mjs'] }),
 			buble({
 				target: !browser ? { node: 4 } : null,
-				include: [
-					'src/**',
-					'node_modules/acorn-jsx/**'
-				],
+				include: [ 'src/**' ],
 				transforms: {
 					dangerousForOf: true
 				}
