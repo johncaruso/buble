@@ -1,6 +1,6 @@
 import Node from '../Node.js';
 import CompileError from '../../utils/CompileError.js';
-import rewritePattern from 'regexpu-core';
+// import rewritePattern from 'regexpu-core';
 
 const nonAsciiLsOrPs = /[\u2028-\u2029]/g;
 
@@ -22,23 +22,24 @@ export default class Literal extends Node {
 		}
 
 		if (this.regex) {
-			const { pattern, flags } = this.regex;
+			// const { pattern, flags } = this.regex;
+			const { flags } = this.regex;
 
 			if (transforms.stickyRegExp && /y/.test(flags))
 				throw new CompileError(
 					'Regular expression sticky flag is not supported',
 					this
 				);
-			if (transforms.unicodeRegExp && /u/.test(flags)) {
-				code.overwrite(
-					this.start,
-					this.end,
-					`/${rewritePattern(pattern, flags)}/${flags.replace('u', '')}`,
-					{
-						contentOnly: true
-					}
-				);
-			}
+			// if (transforms.unicodeRegExp && /u/.test(flags)) {
+			// 	code.overwrite(
+			// 		this.start,
+			// 		this.end,
+			// 		`/${rewritePattern(pattern, flags)}/${flags.replace('u', '')}`,
+			// 		{
+			// 			contentOnly: true
+			// 		}
+			// 	);
+			// }
 		} else if (typeof this.value === "string" && this.value.match(nonAsciiLsOrPs)) {
 			code.overwrite(
 				this.start,

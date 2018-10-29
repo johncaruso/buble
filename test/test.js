@@ -66,7 +66,7 @@ describe('buble', () => {
 
 	if (subset) return;
 
-	describe('cli', () => {
+	xdescribe('cli', () => {
 		fs.readdirSync('test/cli').forEach(dir => {
 			if (dir[0] === '.') return; // .DS_Store
 

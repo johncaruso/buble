@@ -1,11 +1,12 @@
 import { Parser } from 'acorn';
-import acornJsx from 'acorn-jsx';
-import acornDynamicImport from 'acorn-dynamic-import';
+// import acornJsx from 'acorn-jsx';
+// import acornDynamicImport from 'acorn-dynamic-import';
 import Program from './program/Program.js';
 import { features, matrix } from './support.js';
 import getSnippet from './utils/getSnippet.js';
 
-const parser = Parser.extend(acornDynamicImport, acornJsx());
+// const parser = Parser.extend(acornDynamicImport, acornJsx());
+const parser = Parser;
 
 const dangerousTransforms = ['dangerousTaggedTemplateString', 'dangerousForOf'];
 
@@ -50,22 +51,22 @@ export function target(target) {
 
 export function transform(source, options = {}) {
 	let ast;
-	let jsx = null;
+	// let jsx = null;
 
 	try {
 		ast = parser.parse(source, {
 			ecmaVersion: 10,
 			preserveParens: true,
 			sourceType: 'module',
-			allowReturnOutsideFunction: true,
-			onComment: (block, text) => {
-				if (!jsx) {
-					const match = /@jsx\s+([^\s]+)/.exec(text);
-					if (match) jsx = match[1];
-				}
-			}
+			allowReturnOutsideFunction: true //,
+			// onComment: (block, text) => {
+			// 	if (!jsx) {
+			// 		const match = /@jsx\s+([^\s]+)/.exec(text);
+			// 		if (match) jsx = match[1];
+			// 	}
+			// }
 		});
-		options.jsx = jsx || options.jsx;
+		// options.jsx = jsx || options.jsx;
 	} catch (err) {
 		err.snippet = getSnippet(source, err.loc);
 		err.toString = () => `${err.name}: ${err.message}\n${err.snippet}`;
