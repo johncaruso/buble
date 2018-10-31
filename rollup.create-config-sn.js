@@ -6,8 +6,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import pkg from './package.json';
 import postprocess from 'rollup-plugin-postprocess';
 
-let name, exportPrefix;
-
 const ensureArray = maybeArr => Array.isArray(maybeArr) ? maybeArr : [maybeArr];
 
 const createConfigSN = (opts) => {
@@ -27,7 +25,8 @@ const createConfigSN = (opts) => {
 			json(),
 			commonjs({ extensions: ['.js', '.mjs'] }),
 			buble({
-				target: !browser ? { node: 4 } : null,
+				// target: !browser ? { node: 4 } : null,
+				target: null,
 				include: [
 					'src/**' //,
 					// 'node_modules/acorn-jsx/**'
@@ -41,7 +40,11 @@ const createConfigSN = (opts) => {
 				[/([a-zA-Z_$][0-9a-zA-Z_$]*)\.(abstract|boolean|byte|char|class|double|enum|export|extends|final|float|goto|implements|import|int|interface|long|native|package|private|protected|public|short|static|super|synchronized|throws|transient|volatile|break|case|catch|continue|debugger|default|do|else|finally|for|function|if|return|switch|throw|try|var|while|with|null|true|false|instanceof|typeof|void|delete|new|in|this|const)([^0-9a-zA-Z_$]+|$)/,
 					function(match, p1, p2, p3) {
 						return p1 + "['" + p2 + "']" + p3;
-					}]
+					}] //,
+				// [
+				// 	/([$A-Z_][0-9A-Z_$]*)\.__proto__\s?=\s?([$A-Z_][0-9A-Z_$]*)/,
+				// 	'Object.setPrototypeOf( $1, $2 )'
+				// ]
 			])
 		],
 	};
