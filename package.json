@@ -27,7 +27,7 @@
     "test:bundlers:webpack": "cd test/bundlers && mkdir -p node_modules && npm i webpack && node webpack.js && test \"$(node dist/main.js)\" = 'var x = 4'",
     "test:bundlers:parcel": "cd test/bundlers && mkdir -p node_modules && npm i parcel && npx parcel build index.js --no-cache && test \"$(node dist/index.js)\" = 'var x = 4'",
     "prepublish": "npm test",
-    "lint": "eslint bin/ src/ test/test.js test/utils/ register.js rollup.*.js"
+    "lint": "eslint bin/ src/ test/test.js test/utils/ register.js rollup.*.js scripts/"
   },
   "bin": {
     "buble": "./bin/buble"
@@ -53,7 +53,7 @@
   },
   "homepage": "https://github.com/Rich-Harris/buble#README",
   "devDependencies": {
-    "acorn": "^6.0.2",
+    "acorn": "^6.0.4",
     "acorn-dynamic-import": "^4.0.0",
     "acorn-jsx": "^5.0.0",
     "console-group": "^0.3.3",
@@ -62,12 +62,14 @@
     "mocha": "^5.2.0",
     "rimraf": "^2.5.2",
     "rollup": "0.66.0",
-    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-buble": "^0.19.4",
     "rollup-plugin-commonjs": "=9.1.8",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "source-map": "^0.6.1",
-    "source-map-support": "^0.5.9"
+    "source-map-support": "^0.5.9",
+    "test262": "git+https://github.com/tc39/test262.git#238c88d4a084d9928372954e2fec54af2c951281",
+    "test262-stream": "^1.2.0"
   },
   "dependencies": {
     "chalk": "^2.4.1",
